@@ -12,9 +12,9 @@ export const colorPaletteDark = {
     accent: '#064663'
 }
 
-export const space = ['10px', '5px', '2px']
+export const space = ['40px', '20px', '10px', '5px', '2px']
 
-export const fontSizes = ['40px', '20px', '12px']
+export const fontSizes = ['40px', '24px', '18px']
 
 export const font = 'Helvetica'
 
