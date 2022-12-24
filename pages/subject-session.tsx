@@ -65,20 +65,21 @@ const dummyData: MCQ[] = [
 
 export default function MCQSession() {
     const router = useRouter()
-    const subject = router.route
+    const subject = router.query.subject
 
     const [mcqItems, setMcqItems] = React.useState<MCQ[]>([] as MCQ[])
     const [index, setIndex] = React.useState(0 as number)
     const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null)
     const [isLoading, setIsLoading] = React.useState(false as boolean)
 
-    const loadGeneratedQuestions =  () => {
+    const loadGeneratedQuestions =  async () => {
         setIsLoading(true)
-        setTimeout(() => {
-            const newData = dummyData
-            setMcqItems(items => [...items, ...newData])
-            setIsLoading(false)
-        }, 2000)
+        const response = await fetch(`api/generate?subject=${subject}`)
+        console.log(response)
+        const data = await response.json()
+        console.log(data)
+        setMcqItems(items => [...items, ...data])
+        setIsLoading(false)
     }
     useEffect( () => {
         if (mcqItems.length === 0) {
