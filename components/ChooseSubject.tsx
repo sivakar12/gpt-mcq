@@ -6,8 +6,9 @@ import styled from 'styled-components'
 const EXAMPLE_SUBJECTS = [
     'Statistics',
     'Neuroscience',
-    'Game Theory',
     'JavaScript',
+    'React.js',
+    'Algorithms',
     'Data Science',
     'Dermatology',
     'Astrophysics',
@@ -62,7 +63,8 @@ const GenerateButton = styled.div`
     padding: ${props => props.theme.space[1]};
     border-radius: ${props => props.theme.borderRadius};
     font-size: ${props => props.theme.fontSizes[1]};
-    background-color: ${props => props.theme.colorPalette.accent};
+    background-color: ${props => props.theme.colorPalette.text};
+    color: ${props => props.theme.colorPalette.background};
 `
 
 export default function ChooseSubject() {

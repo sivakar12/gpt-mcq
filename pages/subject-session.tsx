@@ -75,9 +75,7 @@ export default function MCQSession() {
     const loadGeneratedQuestions =  async () => {
         setIsLoading(true)
         const response = await fetch(`api/generate?subject=${subject}`)
-        console.log(response)
         const data = await response.json()
-        console.log(data)
         setMcqItems(items => [...items, ...data])
         setIsLoading(false)
     }
