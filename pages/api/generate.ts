@@ -14,24 +14,32 @@ export default async function (
   res: NextApiResponse<MCQ[]>
 ) {
   const subject = req.query.subject;
+  const difficulty = req.query.difficulty || 5;
   console.log(req)
   const prompt = `
 Generate five multiple choice questions on the subject of "${subject}".
-Return the questions and answers in a JSON array of the following type:
+Return the questions and four answers in a JSON array of the following type:
   type MCQ = {
     "question": string
     "answers": string[]
-    "correctAnswer": number
+    "correctAnswer": number (0 - 3)
   }
+Let the difficulty be ${difficulty} on a scale of 1 to 10.
 `
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    temperature: 0.6,
-    max_tokens: 2048
-  });
-  console.log(completion.data.choices[0].text)
-  res.status(200).json(JSON.parse(completion.data.choices[0].text));
+  console.log(prompt)
+  try {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+      temperature: 0.6,
+      max_tokens: 2048
+    });
+    console.log(completion.data.choices[0].text)
+    res.status(200).json(JSON.parse(completion.data.choices[0].text));
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error);
+  }
 }
 
 // function generatePrompt(animal) {

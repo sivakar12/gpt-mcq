@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const EXAMPLE_SUBJECTS = [
@@ -68,13 +68,13 @@ const GenerateButton = styled.div`
 `
 
 export default function ChooseSubject() {
-    const [subject, setSubject] = React.useState('' as string)
-    const [showExamples, setShowExamples] = React.useState(false as boolean)
+    const [subject, setSubject] = useState('' as string)
+    const [showExamples, setShowExamples] = useState(false as boolean)
 
     const router = useRouter()
     const handleGenerate = () => {
         if (!subject) return
-        router.push(`/subject-session?subject=${subject}`)
+        router.push(`/session?subject=${subject}`)
     }
     return (
         <Container>

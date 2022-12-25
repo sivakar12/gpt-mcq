@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import QuestionAndAnswers from '../components/QuestionAndAnswers'
 import { MCQ } from '../types/MCQ'
@@ -66,17 +66,20 @@ const dummyData: MCQ[] = [
 export default function MCQSession() {
     const router = useRouter()
     const subject = router.query.subject
+    const [difficulty, setDifficulty] = useState(5)
 
-    const [mcqItems, setMcqItems] = React.useState<MCQ[]>([] as MCQ[])
-    const [index, setIndex] = React.useState(0 as number)
-    const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null)
-    const [isLoading, setIsLoading] = React.useState(false as boolean)
+    const [mcqItems, setMcqItems] = useState<MCQ[]>([] as MCQ[])
+    const [index, setIndex] = useState(0 as number)
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+    const [isLoading, setIsLoading] = useState(false as boolean)
 
     const loadGeneratedQuestions =  async () => {
         setIsLoading(true)
-        const response = await fetch(`api/generate?subject=${subject}`)
+        const response = await fetch(`api/generate?subject=${subject}&difficulty=${difficulty}`)
         const data = await response.json()
-        setMcqItems(items => [...items, ...data])
+        setMcqItems(data)
+        setIndex(0)
+        setSelectedIndex(null)
         setIsLoading(false)
     }
     useEffect( () => {
@@ -103,6 +106,25 @@ export default function MCQSession() {
         }
     }
 
+    const resetForDifficultyChange = () => {
+        setMcqItems([])
+        setIndex(0)
+        setSelectedIndex(null)
+    }
+
+    const handleEasier = () => {
+        if (difficulty > 1) {
+            setDifficulty(difficulty - 1)
+            resetForDifficultyChange()
+        }
+    }
+
+    const handleHarder = () => {
+        if (difficulty < 10) {
+            setDifficulty(difficulty + 1)
+            resetForDifficultyChange()
+        }
+    }
 
     const loadingMessage = index === 0 ? 'Loading questions...' : 'Loading more questions...'
     return (
@@ -116,8 +138,8 @@ export default function MCQSession() {
                 />}
             <ButtonRow>
                 {/* <Button onClick={handlePrevious}>Previous</Button> */}
-                <Button>Easier Question</Button>
-                <Button>Harder Question</Button>
+                <Button onClick={handleEasier}>Easier Questions</Button>
+                <Button onClick={handleHarder}>Harder Questions</Button>
                 <Button onClick={handleNext}>Next</Button>
             </ButtonRow>
         </Container>
