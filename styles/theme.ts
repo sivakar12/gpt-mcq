@@ -1,20 +1,31 @@
-export const colorPalette = {
+import tinycolor from 'tinycolor2'
+
+type ColorPalette = {
+    background: string
+    background2?: string
+    text: string
+    accent: string
+    answerError: string
+    answerSuccess: string
+}
+
+export const colorPalette: ColorPalette = {
     background: '#F7ECDE',
-    background2: '#E9DAC1',
     text: '#594545',
     accent: '#2B3D41',
     answerError: '#FF597B',
     answerSuccess: '#88A47C'
 }
+colorPalette['background2'] = tinycolor(colorPalette.background).darken(10).toString()
 
-export const colorPaletteDark = {
+export const colorPaletteDark: ColorPalette = {
     background: '#041C32',
-    background2: '#04293A',
     text: '#ECB365',
     accent: '#064663',
     answerError: '#FF597B',
     answerSuccess: '#88A47C'
 }
+colorPaletteDark['background2'] = tinycolor(colorPaletteDark.background).darken(10).toString()
 
 export const space = ['40px', '20px', '10px', '5px', '2px']
 
