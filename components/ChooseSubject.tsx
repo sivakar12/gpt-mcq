@@ -13,6 +13,7 @@ const EXAMPLE_SUBJECTS = [
     'Dermatology',
     'Astrophysics',
     'Renaissance History',
+    'French grammer',
     'Western Classical Music',
 ]
 
@@ -86,7 +87,7 @@ export default function ChooseSubject() {
                 onChange={e => setSubject(e.target.value)}
             />
             <GenerateButton onClick={handleGenerate}>Generate questions</GenerateButton>
-            { !showExamples && <Instruction onClick={() => setShowExamples(true)}>Show Examples</Instruction> }
+            { !showExamples && <Instruction onClick={() => setShowExamples(true)}>Or a select from exmaples</Instruction> }
             { showExamples &&  
             <>
                 <Instruction>Or pick a subject from examples:</Instruction>
