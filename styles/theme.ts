@@ -10,9 +10,9 @@ type ColorPalette = {
 }
 
 export const colorPalette: ColorPalette = {
-    background: '#F7ECDE',
-    text: '#594545',
-    accent: '#2B3D41',
+    background: '#F8F4EA',
+    text: '#579BB1',
+    accent: '#FD8A8A',
     answerError: '#FF597B',
     answerSuccess: '#88A47C'
 }
