@@ -35,10 +35,9 @@ Let the difficulty be ${difficulty} on a scale of 1 to 10.
       max_tokens: 2048
     });
     console.log(completion.data.choices[0].text)
-    res.status(200).json(JSON.parse(completion.data.choices[0].text));
+    res.status(200).json(JSON.parse(completion.data.choices[0].text || '[]'));
   } catch (error) {
     console.log(error)
-    res.status(500).json(error);
   }
 }
 
